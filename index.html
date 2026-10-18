@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24 кадра — фильмы под твоё настроение</title>
+    <meta name="description" content="Подборки фильмов под настроение за 30 секунд, кинодневник и киноклуб для совместных просмотров. Найди своё кино в «24 кадра».">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        /* ============ СБРОС И БАЗОВЫЕ СТИЛИ ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #1a1410;
+            color: #e8d5b7;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ============ ЭФФЕКТ ПЛЁНОЧНОГО ЗЕРНА ============ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+        }
+
+        /* ============ ВЕРТИКАЛЬНЫЕ ЦАРАПИНЫ И ПЫЛИНКИ ============ */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.04;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 120px,
+                    rgba(232, 213, 183, 0.15) 120px,
+                    rgba(232, 213, 183, 0.15) 121px,
+                    transparent 121px,
+                    transparent 380px,
+                    rgba(232, 213, 183, 0.1) 380px,
+                    rgba(232, 213, 183, 0.1) 381px,
+                    transparent 381px
+                ),
+                radial-gradient(circle at 15% 25%, rgba(232, 213, 183, 0.12) 0.5px, transparent 0.5px),
+                radial-gradient(circle at 75% 65%, rgba(232, 213, 183, 0.1) 0.5px, transparent 0.5px),
+                radial-gradient(circle at 45% 85%, rgba(232, 213, 183, 0.08) 0.5px, transparent 0.5px);
+            background-size: 100% 100%, 200px 200px, 250px 250px, 180px 180px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid #e8d5b7;
+            outline-offset: 3px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ============ КОНТЕЙНЕР ============ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ ТИПОГРАФИКА ============ */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+            color: #e8d5b7;
+        }
+
+        .section-subtitle {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            color: #9a8a72;
+            max-width: 640px;
+            margin-bottom: 48px;
+        }
+
+        .accent-text {
+            color: #c9a876;
+        }
+
+        .gold-text {
+            color: #a84a4a;
+        }
+
+        /* ============ ПОЛОСА КИНОПЛЁНКИ (РАЗДЕЛИТЕЛЬ) ============ */
+        .film-strip {
+            height: 28px;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    #211a13 0px, #211a13 12px,
+                    transparent 12px, transparent 24px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px, transparent 6px,
+                    #2b2118 6px, #2b2118 18px,
+                    transparent 18px, transparent 24px
+                );
+            border-top: 2px solid #2b2118;
+            border-bottom: 2px solid #2b2118;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .film-strip::before,
+        .film-strip::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(
+                90deg,
+                #0d0a07 0px, #0d0a07 10px,
+                transparent 10px, transparent 20px
+            );
+        }
+
+        .film-strip::before {
+            top: -6px;
+        }
+
+        .film-strip::after {
+            bottom: -6px;
+        }
+
+        /* ============ КНОПКИ ============ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            white-space: nowrap;
+            position: relative;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7a2e2e, #8b3a3a);
+            color: #e8d5b7;
+            font-weight: 700;
+            box-shadow: 0 3px 0 #5c1f1f, 0 6px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid #a84a4a;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #8b3a3a, #a84a4a);
+            box-shadow: 0 4px 0 #5c1f1f, 0 8px 28px rgba(168, 74, 74, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 0 #5c1f1f, 0 3px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #e8d5b7;
+            border: 2px solid #5c1f1f;
+            box-shadow: inset 0 0 0 1px rgba(168, 74, 74, 0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: #a84a4a;
+            box-shadow: inset 0 0 0 1px rgba(168, 74, 74, 0.2), 0 0 24px rgba(168, 74, 74, 0.2);
+            transform: translateY(-2px);
+            color: #d9c3a3;
+        }
+
+        /* ============ АНИМАЦИЯ ПОЯВЛЕНИЯ ============ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============ ХЕДЕР ============ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 20, 16, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(168, 74, 74, 0.12);
+            transition: background 0.3s ease;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            font-family: 'Rye', serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.04em;
+            color: #a84a4a;
+            flex-shrink: 0;
+            text-shadow: 0 2px 8px rgba(168, 74, 74, 0.4);
+            line-height: 1;
+        }
+
+        .logo span {
+            font-family: 'Special Elite', serif;
+            font-weight: 400;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-list a {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #9a8a72;
+            transition: color 0.3s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #a84a4a;
+            transition: width 0.3s ease;
+        }
+
+        .nav-list a:hover {
+            color: #e8d5b7;
+        }
+
+        .nav-list a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            padding: 10px 22px;
+            font-size: 0.75rem;
+        }
+
+        /* ============ БУРГЕР ============ */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .burger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #a84a4a;
+            border-radius: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            padding: 150px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background: #1a1410;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -150px;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(122, 46, 46, 0.22), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 58, 58, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: 22px;
+            color: #e8d5b7;
+        }
+
+        .hero-content h1 .accent-text {
+            color: #a84a4a;
+            font-style: italic;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            color: #9a8a72;
+            margin-bottom: 36px;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Визуальный коллаж — постеры */
+        .hero-visual {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 14px;
+            border-radius: 6px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            max-width: 480px;
+            margin-left: auto;
+        }
+
+        .hero-visual .poster {
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            background: #211a13;
+            border: 2px solid #2b2118;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s ease;
+        }
+
+        .hero-visual .poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            filter: sepia(0.45) contrast(1.08) brightness(0.8) grayscale(0.15);
+        }
+
+        .hero-visual .poster:hover img {
+            transform: scale(1.06);
+            filter: sepia(0.25) contrast(1.12) brightness(0.95) grayscale(0);
+        }
+
+        /* Белая полоса снизу как подпись кадра */
+        .hero-visual .poster::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: #e8d5b7;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .hero-visual .poster::after {
+            content: '24 КАДРА • 35 ММ';
+            position: absolute;
+            bottom: 3px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: 'Special Elite', serif;
+            font-size: 0.5rem;
+            color: #1a1410;
+            z-index: 3;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .hero-visual .poster:hover {
+            border-color: #a84a4a;
+            box-shadow: 0 6px 24px rgba(168, 74, 74, 0.35);
+        }
+
+        /* ============ О ПРОЕКТЕ ============ */
+        .about {
+            padding: 100px 0;
+            background: #211a13;
+            position: relative;
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: #9a8a72;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(160deg, #2b2118, #1a1410);
+            border: 1px solid rgba(168, 74, 74, 0.15);
+            border-radius: 8px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px dashed rgba(168, 74, 74, 0.12);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(168, 74, 74, 0.4);
+            box-shadow: 0 0 30px rgba(122, 46, 46, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .stat-card .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #a84a4a;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: #7a6a55;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ============ КАК ЭТО РАБОТАЕТ ============ */
+        .how {
+            padding: 100px 0;
+            background: #1a1410;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            counter-reset: step;
+        }
+
+        .step-card {
+            background: linear-gradient(160deg, #2b2118, #211a13);
+            border: 1px solid rgba(168, 74, 74, 0.12);
+            border-radius: 8px;
+            padding: 36px 24px 28px;
+            position: relative;
+            transition: all 0.4s ease;
+            counter-increment: step;
+        }
+
+        .step-card::before {
+            content: counter(step, decimal-leading-zero);
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: rgba(168, 74, 74, 0.1);
+            line-height: 1;
+            transition: color 0.4s ease;
+        }
+
+        .step-card:hover {
+            border-color: rgba(168, 74, 74, 0.5);
+            box-shadow: 0 0 40px rgba(122, 46, 46, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .step-card:hover::before {
+            color: rgba(168, 74, 74, 0.2);
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            display: block;
+            filter: sepia(0.4) brightness(0.95);
+        }
+
+        .step-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #d9c3a3;
+        }
+
+        .step-card p {
+            font-size: 0.88rem;
+            color: #7a6a55;
+            line-height: 1.6;
+        }
+
+        /* ============ ПРЕИМУЩЕСТВА ============ */
+        .features {
+            padding: 100px 0;
+            background: #211a13;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: linear-gradient(160deg, #2b2118, #1a1410);
+            border: 1px solid rgba(168, 74, 74, 0.12);
+            border-radius: 8px;
+            padding: 36px 28px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7a2e2e, #a84a4a);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(168, 74, 74, 0.35);
+            box-shadow: 0 0 40px rgba(122, 46, 46, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 18px;
+            display: block;
+            filter: sepia(0.3) brightness(0.95);
+        }
+
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #d9c3a3;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: #7a6a55;
+            line-height: 1.6;
+        }
+
+        /* ============ ПОДБОРКИ / ТАРИФЫ ============ */
+        .pricing {
+            padding: 100px 0;
+            background: #1a1410;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: linear-gradient(160deg, #2b2118, #211a13);
+            border: 1px solid rgba(168, 74, 74, 0.15);
+            border-radius: 8px;
+            padding: 40px 32px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: rgba(168, 74, 74, 0.5);
+            box-shadow: 0 0 50px rgba(122, 46, 46, 0.25);
+            transform: scale(1.03);
+            background: linear-gradient(160deg, #332618, #211a13);
+        }
+
+        .pricing-card.featured::before {
+            content: '★ ВЫБОР ЗРИТЕЛЕЙ ★';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #7a2e2e, #a84a4a);
+            color: #e8d5b7;
+            font-family: 'Special Elite', serif;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 4px 18px;
+            border-radius: 4px;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(168, 74, 74, 0.4);
+            box-shadow: 0 0 45px rgba(122, 46, 46, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.03) translateY(-6px);
+        }
+
+        .pricing-card .plan-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #d9c3a3;
+        }
+
+        .pricing-card .plan-desc {
+            font-size: 0.82rem;
+            color: #7a6a55;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card .plan-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #a84a4a;
+        }
+
+        .pricing-card .plan-period {
+            font-size: 0.82rem;
+            color: #7a6a55;
+            margin-bottom: 28px;
+        }
+
+        .pricing-card ul {
+            margin-bottom: 32px;
+        }
+
+        .pricing-card ul li {
+            font-size: 0.88rem;
+            color: #9a8a72;
+            padding: 7px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-card ul li::before {
+            content: '✦';
+            color: #a84a4a;
+            font-weight: 700;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+        }
+
+        /* ============ ОТЗЫВЫ ============ */
+        .testimonials {
+            padding: 100px 0;
+            background: #211a13;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(160deg, #2b2118, #1a1410);
+            border: 1px solid rgba(168, 74, 74, 0.12);
+            border-radius: 8px;
+            padding: 32px 28px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '❝';
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: rgba(168, 74, 74, 0.1);
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(168, 74, 74, 0.45);
+            box-shadow: 0 0 35px rgba(122, 46, 46, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+            color: #e8d5b7;
+            border: 2px solid rgba(168, 74, 74, 0.4);
+        }
+
+        .avatar-1 {
+            background: linear-gradient(135deg, #7a2e2e, #5c1f1f);
+        }
+
+        .avatar-2 {
+            background: linear-gradient(135deg, #8b3a3a, #7a2e2e);
+        }
+
+        .avatar-3 {
+            background: linear-gradient(135deg, #5c1f1f, #8b3a3a);
+        }
+
+        .testimonial-header .name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 0.98rem;
+            color: #d9c3a3;
+        }
+
+        .testimonial-header .role {
+            font-size: 0.78rem;
+            color: #7a6a55;
+        }
+
+        .testimonial-card .stars {
+            color: #a84a4a;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-card p {
+            font-size: 0.92rem;
+            color: #9a8a72;
+            line-height: 1.65;
+            font-style: italic;
+        }
+
+        /* ============ КОНТАКТЫ + FOOTER ============ */
+        .contacts {
+            padding: 100px 0 60px;
+            background: #1a1410;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contacts-info h2 {
+            margin-bottom: 16px;
+        }
+
+        .contacts-info p {
+            color: #9a8a72;
+            margin-bottom: 32px;
+            max-width: 440px;
+            line-height: 1.7;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #9a8a72;
+            font-size: 0.92rem;
+        }
+
+        .contact-item .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #2b2118, #1a1410);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(168, 74, 74, 0.2);
+            filter: sepia(0.3);
+        }
+
+        /* Форма */
+        .contact-form {
+            background: linear-gradient(160deg, #2b2118, #211a13);
+            border: 1px solid rgba(168, 74, 74, 0.15);
+            border-radius: 8px;
+            padding: 36px 32px;
+            position: relative;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px dashed rgba(168, 74, 74, 0.1);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #d9c3a3;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #9a8a72;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: #1a1410;
+            border: 1px solid rgba(168, 74, 74, 0.2);
+            border-radius: 6px;
+            color: #e8d5b7;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: rgba(168, 74, 74, 0.6);
+            box-shadow: 0 0 0 3px rgba(168, 74, 74, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #5a4a38;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-error {
+            font-size: 0.75rem;
+            color: #a84a4a;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: rgba(168, 74, 74, 0.8);
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        /* Футер */
+        .footer {
+            padding: 40px 0 32px;
+            border-top: 1px solid rgba(168, 74, 74, 0.12);
+            background: #1a1410;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer .logo {
+            font-size: 1.2rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background: #211a13;
+            border: 1px solid rgba(168, 74, 74, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            filter: sepia(0.3);
+        }
+
+        .footer-socials a:hover {
+            border-color: rgba(168, 74, 74, 0.6);
+            box-shadow: 0 0 20px rgba(168, 74, 74, 0.25);
+            transform: translateY(-2px);
+            filter: sepia(0);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: #5a4a38;
+            font-family: 'Special Elite', serif;
+        }
+
+        /* ============ УВЕДОМЛЕНИЕ ============ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: linear-gradient(135deg, #7a2e2e, #a84a4a);
+            color: #e8d5b7;
+            padding: 16px 32px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            box-shadow: 0 10px 40px rgba(122, 46, 46, 0.5);
+            z-index: 2000;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            font-family: 'Special Elite', serif;
+            letter-spacing: 0.04em;
+            border: 1px solid #8b3a3a;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============ АДАПТИВНОСТЬ ============ */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .hero-visual {
+                max-width: 100%;
+                margin-left: 0;
+                aspect-ratio: 16 / 10;
+            }
+
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-6px);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                height: 62px;
+            }
+
+            .nav-list {
+                position: fixed;
+                top: 62px;
+                left: 0;
+                right: 0;
+                background: rgba(26, 20, 16, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px 20px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(168, 74, 74, 0.15);
+                transform: translateY(-120%);
+                opacity: 0;
+                transition: transform 0.4s ease, opacity 0.4s ease;
+                pointer-events: none;
+            }
+
+            .nav-list.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-list a {
+                font-size: 0.95rem;
+                padding: 8px 0;
+            }
+
+            .header-cta {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .hero-visual {
+                aspect-ratio: 1 / 1;
+            }
+
+            .about,
+            .how,
+            .features,
+            .pricing,
+            .testimonials,
+            .contacts {
+                padding: 60px 0;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .contact-form {
+                padding: 28px 22px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-socials {
+                order: -1;
+            }
+
+            .section-title {
+                margin-bottom: 12px;
+            }
+
+            .section-subtitle {
+                margin-bottom: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 20px 18px;
+            }
+
+            .hero-visual {
+                gap: 8px;
+            }
+
+            .hero-visual .poster {
+                border-radius: 3px;
+            }
+
+            .hero-visual .poster::before {
+                height: 16px;
+            }
+
+            .hero-visual .poster::after {
+                font-size: 0.4rem;
+                bottom: 2px;
+            }
+        }
+
+        /* ============ ПЛАВНЫЙ СКРОЛЛ ============ */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+
+        /* ============ МЕРЦАНИЕ ЛАМПЫ В HERO ============ */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.85; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+            97% { opacity: 1; }
+        }
+
+        .hero::before {
+            animation: flicker 4s infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .fade-in {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ 1. HEADER / НАВИГАЦИЯ ============ -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">24 кадра<span>.</span></a>
+
+            <nav>
+                <ul class="nav-list" id="navList">
+                    <li><a href="#how">Как это работает</a></li>
+                    <li><a href="#pricing">Подборки</a></li>
+                    <li><a href="#club">Киноклуб</a></li>
+                    <li><a href="#testimonials">Отзывы</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <a href="#contacts" class="btn btn-primary header-cta">Попробовать</a>
+
+            <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="navList">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ============ 2. HERO-БЛОК ============ -->
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content fade-in">
+                        <h1>Фильм под твоё настроение — <span class="accent-text">за 30 секунд</span></h1>
+                        <p>Выбирай настроение, получай персональную подборку, веди кинодневник и смотри кино вместе с друзьями в киноклубе «24 кадра».</p>
+                        <div class="hero-buttons">
+                            <a href="#contacts" class="btn btn-primary">Получить подборку</a>
+                            <a href="#how" class="btn btn-secondary">Как это работает</a>
+                        </div>
+                    </div>
+
+                    <!-- Коллаж постеров -->
+                    <div class="hero-visual fade-in">
+                        <div class="poster">
+                            <img src="https://placehold.co/400x600/5c1f1f/e8d5b7?text=%D0%9D%D0%BE%D1%81%D1%82%D0%B0%D0%BB%D1%8C%D0%B3%D0%B8%D1%8F&font=playfair-display" alt="Постер Ноктюрн" loading="lazy">
+                        </div>
+                        <div class="poster">
+                            <img src="https://placehold.co/400x600/3a1f1f/e8d5b7?text=%D0%9B%D1%8E%D0%B1%D0%BE%D0%B2%D1%8C&font=playfair-display" alt="Постер Любовь" loading="lazy">
+                        </div>
+                        <div class="poster">
+                            <img src="https://placehold.co/400x600/4a2020/e8d5b7?text=%D0%9F%D1%83%D1%82%D1%8C&font=playfair-display" alt="Постер Путь" loading="lazy">
+                        </div>
+                        <div class="poster">
+                            <img src="https://placehold.co/400x600/6b2a2a/e8d5b7?text=%D0%9C%D0%B5%D1%87%D1%82%D0%B0&font=playfair-display" alt="Постер Мечта" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
+        <div class="film-strip"></div>
+
+        <!-- ============ 3. О ПРОЕКТЕ ============ -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-inner">
+                    <div class="about-text fade-in">
+                        <h2 class="section-title">Что такое <span class="gold-text">«24 кадра»</span></h2>
+                        <p>«24 кадра» — это онлайн-сервис, который подбирает фильмы под ваше настроение. Больше не нужно листать каталоги и читать рецензии: выберите эмоцию — и получите готовую подборку за 30 секунд.</p>
+                        <p>Мы создали сервис для тех, кто любит кино, но устал тратить время на выбор. А ещё — это киноклуб с совместными просмотрами и личным кинодневником, где можно сохранять впечатления и делиться ими с друзьями.</p>
+                        <p>Для студентов и молодых специалистов, которые ценят своё время и хотят смотреть только то, что действительно попадёт в настроение.</p>
+                    </div>
+
+                    <div class="about-stats fade-in">
+                        <div class="stat-card">
+                            <span class="number">30 сек</span>
+                            <span class="label">на подбор фильма</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="number">12+</span>
+                            <span class="label">настроений</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="number">5 000+</span>
+                            <span class="label">фильмов в базе</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="number">24/7</span>
+                            <span class="label">доступ к киноклубу</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
+        <div class="film-strip"></div>
+
+        <!-- ============ 4. КАК ЭТО РАБОТАЕТ ============ -->
+        <section class="how" id="how">
+            <div class="container">
+                <h2 class="section-title fade-in">Как это работает</h2>
+                <p class="section-subtitle fade-in">Четыре простых шага — от настроения до совместного просмотра.</p>
+
+                <div class="steps-grid">
+                    <div class="step-card fade-in">
+                        <span class="step-icon">🎭</span>
+                        <h3>Выбираешь настроение</h3>
+                        <p>Грустно, весело, хочется вдохновения или просто отключиться? Укажи эмоцию — мы поймём.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <span class="step-icon">🎬</span>
+                        <h3>Получаешь подборку</h3>
+                        <p>Персональная подборка фильмов, которая точно попадёт в твоё состояние. Без спойлеров и рекламы.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <span class="step-icon">📓</span>
+                        <h3>Добавляешь в дневник</h3>
+                        <p>Сохраняй фильмы, ставь оценки, записывай впечатления. Твой личный кинодневник всегда под рукой.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <span class="step-icon">💬</span>
+                        <h3>Обсуждаешь в клубе</h3>
+                        <p>Смотри кино вместе с другими участниками, обсуждай в чате и находи единомышленников.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
+        <div class="film-strip"></div>
+
+        <!-- ============ 5. ПРЕИМУЩЕСТВА ============ -->
+        <section class="features" id="club">
+            <div class="container">
+                <h2 class="section-title fade-in">Почему <span class="gold-text">«24 кадра»</span></h2>
+                <p class="section-subtitle fade-in">Мы сделали сервис, которым пользуемся сами.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <span class="feature-icon">✨</span>
+                        <h3>Персональные подборки</h3>
+                        <p>Алгоритм учитывает твои оценки, историю просмотров и текущее настроение — никаких случайных фильмов.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <span class="feature-icon">📔</span>
+                        <h3>Кинодневник</h3>
+                        <p>Записывай впечатления, ставь оценки и возвращайся к любимым фильмам. Вся история — в одном месте.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <span class="feature-icon">👥</span>
+                        <h3>Киноклуб</h3>
+                        <p>Совместные просмотры, обсуждения и голосования. Находи людей, которые любят то же кино, что и ты.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <span class="feature-icon">🚫</span>
+                        <h3>Без рекламы и спойлеров</h3>
+                        <p>Никакой рекламы, навязчивых баннеров и спойлеров в описаниях. Только кино и твои эмоции.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
+        <div class="film-strip"></div>
+
+        <!-- ============ 6. ПОДБОРКИ / ТАРИФЫ ============ -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <h2 class="section-title fade-in">Выбери свой формат</h2>
+                <p class="section-subtitle fade-in">Начни бесплатно — или открой все возможности киноклуба.</p>
+
+                <div class="pricing-grid">
+                    <!-- Free -->
+                    <div class="pricing-card fade-in">
+                        <div class="plan-name">Free</div>
+                        <div class="plan-desc">Для знакомства с сервисом</div>
+                        <div class="plan-price">0 ₽</div>
+                        <div class="plan-period">навсегда</div>
+                        <ul>
+                            <li>3 подборки в месяц</li>
+                            <li>Базовый кинодневник</li>
+                            <li>Доступ к общим чатам</li>
+                            <li>Без рекламы</li>
+                        </ul>
+                        <a href="#contacts" class="btn btn-secondary">Начать бесплатно</a>
+                    </div>
+
+                    <!-- Plus (featured) -->
+                    <div class="pricing-card featured fade-in">
+                        <div class="plan-name">Plus</div>
+                        <div class="plan-desc">Для тех, кто смотрит часто</div>
+                        <div class="plan-price">299 ₽</div>
+                        <div class="plan-period">в месяц</div>
+                        <ul>
+                            <li>Неограниченные подборки</li>
+                            <li>Расширенный кинодневник</li>
+                            <li>Все тематические подборки</li>
+                            <li>Приоритет в киноклубе</li>
+                            <li>Без рекламы и спойлеров</li>
+                        </ul>
+                        <a href="#contacts" class="btn btn-primary">Попробовать бесплатно</a>
+                    </div>
+
+                    <!-- Киноклуб -->
+                    <div class="pricing-card fade-in">
+                        <div class="plan-name">Киноклуб</div>
+                        <div class="plan-desc">Для компаний и общения</div>
+                        <div class="plan-price">499 ₽</div>
+                        <div class="plan-period">в месяц</div>
+                        <ul>
+                            <li>Всё из Plus</li>
+                            <li>Совместные просмотры</li>
+                            <li>Закрытые обсуждения</li>
+                            <li>Голосования за фильмы</li>
+                            <li>Личный куратор клуба</li>
+                        </ul>
+                        <a href="#contacts" class="btn btn-secondary">Вступить в клуб</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
+        <div class="film-strip"></div>
+
+        <!-- ============ 7. ОТЗЫВЫ ============ -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <h2 class="section-title fade-in">Отзывы участников</h2>
+                <p class="section-subtitle fade-in">Они уже нашли своё кино. Ты — следующий.</p>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-header">
+                            <div class="avatar avatar-1">АК</div>
+                            <div>
+                                <div class="name">Алина К.</div>
+                                <div class="role">Студентка, 21 год</div>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p>«Раньше тратила по часу на выбор фильма и часто бросала на середине. Теперь выбираю настроение — и через 30 секунд уже смотрю. Кинодневник помог понять, что мне реально нравится.»</p>
+                    </div>
+
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-header">
+                            <div class="avatar avatar-2">ДМ</div>
+                            <div>
+                                <div class="name">Дмитрий М.</div>
+                                <div class="role">Разработчик, 28 лет</div>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p>«Киноклуб — огонь. Смотрим с друзьями по выходным, обсуждаем в чате. Подборки реально попадают в настроение, особенно "На вечер после работы". Рекомендую всем, кто устал от бесконечного скроллинга.»</p>
+                    </div>
+
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-header">
+                            <div class="avatar avatar-3">ЕС</div>
+                            <div>
+                                <div class="name">Елена С.</div>
+                                <div class="role">Дизайнер, 24 года</div>
+                            </div>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p>«Очень нравится, что нет спойлеров и рекламы. Просто выбираешь настроение — и получаешь фильмы, которые хочется смотреть. Кинодневник стал моим личным ритуалом после каждого просмотра.»</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
+        <div class="film-strip"></div>
+
+        <!-- ============ 8. КОНТАКТЫ + FOOTER ============ -->
+        <section class="contacts" id="contacts">
+            <div class="container">
+                <div class="contacts-grid">
+                    <div class="contacts-info fade-in">
+                        <h2 class="section-title">Получи свою <span class="gold-text">первую подборку</span></h2>
+                        <p>Оставь заявку — и мы пришлём персональную подборку фильмов под твоё настроение. Бесплатно и без спама.</p>
+
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="icon">📧</div>
+                                <span>hello@24kadra.ru</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="icon">📱</div>
+                                <span>+7 (999) 123-45-67</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="icon">📍</div>
+                                <span>Москва, ул. Кинорежиссёрская, 24</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form fade-in" id="contactForm" novalidate>
+                        <h3>Оставить заявку</h3>
+
+                        <div class="form-group" id="groupName">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" placeholder="Как тебя зовут?" autocomplete="name">
+                            <div class="form-error">Пожалуйста, введите имя</div>
+                        </div>
+
+                        <div class="form-group" id="groupEmail">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="example@mail.ru" autocomplete="email">
+                            <div class="form-error">Введите корректный email</div>
+                        </div>
+
+                        <div class="form-group" id="groupMessage">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" name="message" placeholder="Какое у тебя настроение?"></textarea>
+                            <div class="form-error">Напишите пару слов</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Получить подборку</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a href="#" class="logo">24 кадра<span>.</span></a>
+
+            <div class="footer-socials">
+                <a href="#" aria-label="Telegram">✈️</a>
+                <a href="#" aria-label="VK">💬</a>
+                <a href="#" aria-label="YouTube">▶️</a>
+                <a href="#" aria-label="Дзен">📰</a>
+            </div>
+
+            <div class="footer-copy">© 2025 «24 кадра». Все права защищены.</div>
+        </div>
+    </footer>
+
+    <!-- ============ УВЕДОМЛЕНИЕ ============ -->
+    <div class="toast" id="toast">Спасибо! Заявка отправлена 🎬</div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---------- Бургер-меню ----------
+            const burger = document.getElementById('burger');
+            const navList = document.getElementById('navList');
+
+            burger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navList.classList.toggle('open');
+                this.setAttribute('aria-expanded', String(navList.classList.contains('open')));
+            });
+
+            // Закрываем меню при клике на ссылку
+            navList.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    burger.classList.remove('active');
+                    navList.classList.remove('open');
+                    burger.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // ---------- Плавный скролл ----------
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // ---------- Анимация появления при скролле ----------
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            fadeElements.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            // ---------- Валидация формы ----------
+            const form = document.getElementById('contactForm');
+            const toast = document.getElementById('toast');
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function showError(groupId) {
+                document.getElementById(groupId).classList.add('error');
+            }
+
+            function clearError(groupId) {
+                document.getElementById(groupId).classList.remove('error');
+            }
+
+            // Очищаем ошибки при вводе
+            ['name', 'email', 'message'].forEach(function(fieldId) {
+                const input = document.getElementById(fieldId);
+                input.addEventListener('input', function() {
+                    clearError('group' + fieldId.charAt(0).toUpperCase() + fieldId.slice(1));
+                });
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                let isValid = true;
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                // Имя
+                if (!name) {
+                    showError('groupName');
+                    isValid = false;
+                } else {
+                    clearError('groupName');
+                }
+
+                // Email
+                if (!email || !validateEmail(email)) {
+                    showError('groupEmail');
+                    isValid = false;
+                } else {
+                    clearError('groupEmail');
+                }
+
+                // Сообщение
+                if (!message) {
+                    showError('groupMessage');
+                    isValid = false;
+                } else {
+                    clearError('groupMessage');
+                }
+
+                if (!isValid) return;
+
+                // Показываем уведомление
+                toast.classList.add('show');
+
+                // Сбрасываем форму
+                form.reset();
+
+                // Скрываем уведомление через 3.5 секунды
+                setTimeout(function() {
+                    toast.classList.remove('show');
+                }, 3500);
+            });
+
+            // ---------- Хедер: фон при скролле ----------
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 20) {
+                    header.style.background = 'rgba(26, 20, 16, 0.97)';
+                } else {
+                    header.style.background = 'rgba(26, 20, 16, 0.92)';
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
