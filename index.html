@@ -91,8 +91,18 @@
         button:focus-visible,
         input:focus-visible,
         textarea:focus-visible {
-            outline: 3px solid #e8d5b7;
+            outline: 3px solid #f4d7a5;
             outline-offset: 3px;
+            box-shadow: 0 0 0 5px rgba(168, 74, 74, 0.28);
+        }
+
+        .btn:focus-visible,
+        .nav-list a:focus-visible,
+        .contact-form input:focus-visible,
+        .contact-form textarea:focus-visible {
+            outline: 4px solid #f4d7a5;
+            outline-offset: 3px;
+            box-shadow: 0 0 0 6px rgba(168, 74, 74, 0.28);
         }
 
         ul {
@@ -1359,9 +1369,9 @@
         <div class="container header-inner">
             <a href="#" class="logo">24 кадра<span>.</span></a>
 
-            <nav>
-                <ul class="nav-list" id="navList">
-                    <li><a href="#how">Как это работает</a></li>
+            <nav aria-label="Основное меню">
+                <ul class="nav-list" id="navList" aria-label="Главное меню">
+                    <li><a href="#how" aria-current="page">Как это работает</a></li>
                     <li><a href="#pricing">Подборки</a></li>
                     <li><a href="#club">Киноклуб</a></li>
                     <li><a href="#testimonials">Отзывы</a></li>
@@ -1371,7 +1381,7 @@
 
             <a href="#contacts" class="btn btn-primary header-cta">Попробовать</a>
 
-            <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="navList">
+            <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="navList">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -1709,21 +1719,65 @@
             // ---------- Бургер-меню ----------
             const burger = document.getElementById('burger');
             const navList = document.getElementById('navList');
+            const navLinks = document.querySelectorAll('.nav-list a');
+
+            function setMenuState(isOpen) {
+                burger.classList.toggle('active', isOpen);
+                navList.classList.toggle('open', isOpen);
+                burger.setAttribute('aria-expanded', String(isOpen));
+                burger.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+            }
 
             burger.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navList.classList.toggle('open');
-                this.setAttribute('aria-expanded', String(navList.classList.contains('open')));
+                const isOpen = !navList.classList.contains('open');
+                setMenuState(isOpen);
+            });
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && navList.classList.contains('open')) {
+                    setMenuState(false);
+                    burger.focus();
+                }
             });
 
             // Закрываем меню при клике на ссылку
-            navList.querySelectorAll('a').forEach(function(link) {
+            navLinks.forEach(function(link) {
                 link.addEventListener('click', function() {
-                    burger.classList.remove('active');
-                    navList.classList.remove('open');
-                    burger.setAttribute('aria-expanded', 'false');
+                    setMenuState(false);
                 });
             });
+
+            function updateActiveNavLink() {
+                const sectionIds = Array.from(navLinks).map(function(link) {
+                    return link.getAttribute('href');
+                }).filter(function(href) {
+                    return href && href.startsWith('#');
+                });
+
+                let activeLink = null;
+                let activeDistance = Number.POSITIVE_INFINITY;
+
+                sectionIds.forEach(function(id) {
+                    const section = document.querySelector(id);
+                    if (!section) return;
+
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs(rect.top - 120);
+
+                    if (rect.top <= 160 && rect.bottom >= 160 && distance < activeDistance) {
+                        activeDistance = distance;
+                        activeLink = document.querySelector('.nav-list a[href="' + id + '"]');
+                    }
+                });
+
+                navLinks.forEach(function(link) {
+                    const isActive = link === activeLink;
+                    link.setAttribute('aria-current', isActive ? 'page' : 'false');
+                });
+            }
+
+            updateActiveNavLink();
+            window.addEventListener('scroll', updateActiveNavLink, { passive: true });
 
             // ---------- Плавный скролл ----------
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
