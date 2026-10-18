@@ -1668,23 +1668,23 @@
 
                         <div class="form-group" id="groupName">
                             <label for="name">Имя</label>
-                            <input type="text" id="name" name="name" placeholder="Как тебя зовут?" autocomplete="name">
+                            <input type="text" id="name" name="name" placeholder="Как тебя зовут?" autocomplete="name" required aria-required="true">
                             <div class="form-error">Пожалуйста, введите имя</div>
                         </div>
 
                         <div class="form-group" id="groupEmail">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="example@mail.ru" autocomplete="email">
+                            <input type="email" id="email" name="email" placeholder="example@mail.ru" autocomplete="email" required aria-required="true">
                             <div class="form-error">Введите корректный email</div>
                         </div>
 
                         <div class="form-group" id="groupMessage">
                             <label for="message">Сообщение</label>
-                            <textarea id="message" name="message" placeholder="Какое у тебя настроение?"></textarea>
+                            <textarea id="message" name="message" placeholder="Какое у тебя настроение?" required aria-required="true"></textarea>
                             <div class="form-error">Напишите пару слов</div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width:100%;">Получить подборку</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Получить подборку</button>
                     </form>
                 </div>
             </div>
@@ -1815,6 +1815,7 @@
             // ---------- Валидация формы ----------
             const form = document.getElementById('contactForm');
             const toast = document.getElementById('toast');
+            const submitBtn = document.getElementById('submitBtn');
 
             function validateEmail(email) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -1826,6 +1827,12 @@
 
             function clearError(groupId) {
                 document.getElementById(groupId).classList.remove('error');
+            }
+
+            function setSubmitState(isLoading) {
+                submitBtn.disabled = isLoading;
+                submitBtn.textContent = isLoading ? 'Отправляем…' : 'Получить подборку';
+                submitBtn.setAttribute('aria-busy', String(isLoading));
             }
 
             // Очищаем ошибки при вводе
@@ -1871,16 +1878,19 @@
 
                 if (!isValid) return;
 
-                // Показываем уведомление
-                toast.classList.add('show');
+                setSubmitState(true);
 
-                // Сбрасываем форму
-                form.reset();
-
-                // Скрываем уведомление через 3.5 секунды
+                // Здесь должна быть реальная отправка: backend / Telegram / email / CRM.
+                // Пока это демо-имитация, чтобы показать UX-поток.
                 setTimeout(function() {
-                    toast.classList.remove('show');
-                }, 3500);
+                    setSubmitState(false);
+                    toast.classList.add('show');
+                    form.reset();
+
+                    setTimeout(function() {
+                        toast.classList.remove('show');
+                    }, 3500);
+                }, 900);
             });
 
             // ---------- Хедер: фон при скролле ----------
