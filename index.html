@@ -31,9 +31,6 @@
       "priceRange": "₽₽"
     }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Rye:wght@400&family=Special+Elite:wght@400&display=swap" rel="stylesheet">
     <style>
         /* ============ СБРОС И БАЗОВЫЕ СТИЛИ ============ */
         * {
@@ -47,13 +44,21 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
+            font-weight: 600;
             background-color: #1a1410;
             color: #e8d5b7;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
             position: relative;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
         }
 
         /* ============ ЭФФЕКТ ПЛЁНОЧНОГО ЗЕРНА ============ */
@@ -137,13 +142,22 @@
 
         /* ============ ТИПОГРАФИКА ============ */
         .section-title {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: clamp(1.75rem, 4vw, 2.75rem);
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 16px;
             letter-spacing: -0.01em;
             color: #e8d5b7;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
         }
 
         .section-subtitle {
@@ -165,6 +179,12 @@
         .film-strip {
             height: 28px;
             background:
+                linear-gradient(
+                    105deg,
+                    transparent 38%,
+                    rgba(201, 168, 118, 0.14) 50%,
+                    transparent 62%
+                ),
                 repeating-linear-gradient(
                     90deg,
                     #211a13 0px, #211a13 12px,
@@ -176,10 +196,22 @@
                     #2b2118 6px, #2b2118 18px,
                     transparent 18px, transparent 24px
                 );
+            background-size: 260px 100%, auto, auto;
+            background-repeat: no-repeat, repeat, repeat;
+            animation: film-light-pass 16s ease-in-out infinite;
             border-top: 2px solid #2b2118;
             border-bottom: 2px solid #2b2118;
             opacity: 0.7;
             position: relative;
+        }
+
+        @keyframes film-light-pass {
+            0%, 15% {
+                background-position: -260px 0, 0 0, 0 0;
+            }
+            85%, 100% {
+                background-position: calc(100vw + 260px) 0, 0 0, 0 0;
+            }
         }
 
         .film-strip::before,
@@ -212,8 +244,8 @@
             gap: 8px;
             padding: 14px 32px;
             font-size: 0.85rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-family: Helvetica, Arial, sans-serif;
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -227,7 +259,7 @@
         .btn-primary {
             background: linear-gradient(135deg, #7a2e2e, #8b3a3a);
             color: #e8d5b7;
-            font-weight: 700;
+            font-weight: 800;
             box-shadow: 0 3px 0 #5c1f1f, 0 6px 20px rgba(0, 0, 0, 0.5);
             border: 1px solid #a84a4a;
         }
@@ -291,20 +323,31 @@
         }
 
         .logo {
-            font-family: 'Rye', serif;
+            font-family: 'Helvetica', sans-serif;
             font-size: 1.4rem;
-            letter-spacing: 0.04em;
-            color: #a84a4a;
+            font-weight: 600;
+            letter-spacing: 0.02em;
             flex-shrink: 0;
-            text-shadow: 0 2px 8px rgba(168, 74, 74, 0.4);
+            color: #e8d5b7;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
             line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #ffffff;
         }
 
         .logo span {
-            font-family: 'Special Elite', serif;
+            font-family: 'Helvetica', sans-serif;
             font-weight: 400;
-            opacity: 0.7;
+            color: #a84a4a;
             font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover span {
+            color: #d66b6b;
         }
 
         .nav-list {
@@ -315,7 +358,7 @@
 
         .nav-list a {
             font-size: 0.82rem;
-            font-weight: 500;
+            font-weight: 800;
             color: #9a8a72;
             transition: color 0.3s ease;
             position: relative;
@@ -420,7 +463,7 @@
         }
 
         .hero-content h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: clamp(2rem, 5vw, 3.4rem);
             font-weight: 700;
             line-height: 1.15;
@@ -459,6 +502,7 @@
             border: 1px solid rgba(168, 74, 74, 0.2);
             color: #d9c3a3;
             font-size: 0.78rem;
+            font-weight: 800;
             letter-spacing: 0.04em;
             text-transform: uppercase;
         }
@@ -483,7 +527,7 @@
             display: block;
             font-size: 1.1rem;
             color: #e8d5b7;
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             margin-bottom: 4px;
         }
 
@@ -535,15 +579,40 @@
         /* ============ О ПРОЕКТЕ ============ */
         .about {
             padding: 100px 0;
-            background: #211a13;
+            background-color: #1a1410;
             position: relative;
+            overflow: hidden;
+            transition: background-color 0.6s ease;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(135deg, rgba(26, 20, 16, 0.78), rgba(26, 20, 16, 0.58)),
+                url('cinema.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1);
+            animation: about-ken-burns 20s ease-in-out infinite alternate;
+            will-change: transform;
         }
 
         .about-inner {
+            position: relative;
+            z-index: 2;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
+        }
+
+        @keyframes about-ken-burns {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
         }
 
         .about-text p {
@@ -564,8 +633,8 @@
         }
 
         .stat-card {
-            background: linear-gradient(160deg, #2b2118, #1a1410);
-            border: 1px solid rgba(168, 74, 74, 0.15);
+            background: linear-gradient(160deg, rgba(55, 39, 27, 0.94), rgba(32, 24, 18, 0.96));
+            border: 1px solid rgba(201, 168, 118, 0.24);
             border-radius: 8px;
             padding: 28px 24px;
             text-align: center;
@@ -580,7 +649,7 @@
             left: 8px;
             right: 8px;
             bottom: 8px;
-            border: 1px dashed rgba(168, 74, 74, 0.12);
+            border: 1px dashed rgba(201, 168, 118, 0.2);
             border-radius: 4px;
             pointer-events: none;
         }
@@ -592,9 +661,9 @@
         }
 
         .stat-card .number {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 1.9rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #a84a4a;
             display: block;
             margin-bottom: 4px;
@@ -602,8 +671,8 @@
 
         .stat-card .label {
             font-size: 0.8rem;
-            color: #7a6a55;
-            font-weight: 400;
+            color: #9a8a72;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.06em;
         }
@@ -636,10 +705,10 @@
             position: absolute;
             top: 14px;
             right: 18px;
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 2.4rem;
-            font-weight: 700;
-            color: rgba(168, 74, 74, 0.1);
+            font-weight: 800;
+            color: rgba(168, 74, 74, 0.3);
             line-height: 1;
             transition: color 0.4s ease;
         }
@@ -651,7 +720,7 @@
         }
 
         .step-card:hover::before {
-            color: rgba(168, 74, 74, 0.2);
+            color: rgba(168, 74, 74, 0.48);
         }
 
         .step-icon {
@@ -662,7 +731,7 @@
         }
 
         .step-card h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
@@ -671,7 +740,7 @@
 
         .step-card p {
             font-size: 0.88rem;
-            color: #7a6a55;
+            color: #9a8a72;
             line-height: 1.6;
         }
 
@@ -727,7 +796,7 @@
         }
 
         .feature-card h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 1.05rem;
             font-weight: 600;
             margin-bottom: 10px;
@@ -736,7 +805,7 @@
 
         .feature-card p {
             font-size: 0.88rem;
-            color: #7a6a55;
+            color: #9a8a72;
             line-height: 1.6;
         }
 
@@ -744,6 +813,20 @@
         .pricing {
             padding: 100px 0;
             background: #1a1410;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-film-icon {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 120px;
+            height: auto;
+            z-index: 10;
+            opacity: 0.12;
+            filter: invert(1) sepia(1) hue-rotate(-50deg) saturate(5) brightness(0.8);
+            pointer-events: none;
         }
 
         .pricing-grid {
@@ -777,7 +860,7 @@
             transform: translateX(-50%);
             background: linear-gradient(135deg, #7a2e2e, #a84a4a);
             color: #e8d5b7;
-            font-family: 'Special Elite', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 0.6rem;
             font-weight: 700;
             padding: 4px 18px;
@@ -797,7 +880,7 @@
         }
 
         .pricing-card .plan-name {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 4px;
@@ -806,12 +889,12 @@
 
         .pricing-card .plan-desc {
             font-size: 0.82rem;
-            color: #7a6a55;
+            color: #9a8a72;
             margin-bottom: 24px;
         }
 
         .pricing-card .plan-price {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 2.4rem;
             font-weight: 700;
             margin-bottom: 4px;
@@ -820,7 +903,7 @@
 
         .pricing-card .plan-period {
             font-size: 0.82rem;
-            color: #7a6a55;
+            color: #9a8a72;
             margin-bottom: 28px;
         }
 
@@ -875,7 +958,7 @@
             position: absolute;
             top: 16px;
             right: 20px;
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 3rem;
             color: rgba(168, 74, 74, 0.1);
             line-height: 1;
@@ -901,7 +984,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-weight: 700;
             font-size: 1rem;
             flex-shrink: 0;
@@ -922,7 +1005,7 @@
         }
 
         .testimonial-header .name {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-weight: 600;
             font-size: 0.98rem;
             color: #d9c3a3;
@@ -930,7 +1013,7 @@
 
         .testimonial-header .role {
             font-size: 0.78rem;
-            color: #7a6a55;
+            color: #9a8a72;
         }
 
         .testimonial-card .stars {
@@ -951,6 +1034,8 @@
         .contacts {
             padding: 100px 0 60px;
             background: #1a1410;
+            position: relative;
+            overflow: hidden;
         }
 
         .contacts-grid {
@@ -958,6 +1043,38 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: start;
+        }
+
+        .poster-marquee {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .poster-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: scroll-posters 40s linear infinite;
+        }
+
+        .poster-track img {
+            width: 120px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll-posters {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .contacts-info h2 {
@@ -1001,11 +1118,12 @@
 
         /* Форма */
         .contact-form {
-            background: linear-gradient(160deg, #2b2118, #211a13);
+            background: linear-gradient(160deg, rgba(43, 33, 24, 0.88), rgba(33, 26, 19, 0.9));
             border: 1px solid rgba(168, 74, 74, 0.15);
             border-radius: 8px;
             padding: 36px 32px;
             position: relative;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         .contact-form::before {
@@ -1021,7 +1139,7 @@
         }
 
         .contact-form h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 24px;
@@ -1035,7 +1153,7 @@
         .form-group label {
             display: block;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 700;
             margin-bottom: 6px;
             color: #9a8a72;
             text-transform: uppercase;
@@ -1050,7 +1168,7 @@
             border: 1px solid rgba(168, 74, 74, 0.2);
             border-radius: 6px;
             color: #e8d5b7;
-            font-family: 'Inter', sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 0.92rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             outline: none;
@@ -1104,7 +1222,7 @@
         }
 
         .footer .logo {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
 
         .footer-socials {
@@ -1133,10 +1251,74 @@
             filter: sepia(0);
         }
 
+        .how,
+        .features,
+        .pricing,
+        .testimonials,
+        .contacts {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .how::before,
+        .features::before,
+        .pricing::before,
+        .testimonials::before,
+        .contacts::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 82% 18%, rgba(122, 46, 46, 0.18), transparent 38%),
+                radial-gradient(ellipse at 14% 86%, rgba(201, 168, 118, 0.06), transparent 34%);
+            animation: ambient-glow 26s ease-in-out infinite alternate;
+        }
+
+        .how > .container,
+        .features > .container,
+        .pricing > .container,
+        .testimonials > .container,
+        .contacts > .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card:hover,
+        .step-card:hover,
+        .feature-card:hover,
+        .pricing-card:hover,
+        .testimonial-card:hover,
+        .contact-form:hover {
+            border-color: rgba(168, 74, 74, 0.5);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), 0 0 32px rgba(122, 46, 46, 0.24);
+        }
+
+        .pricing-card.featured:hover {
+            border-color: rgba(168, 74, 74, 0.5);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), 0 0 32px rgba(122, 46, 46, 0.24);
+        }
+
+        .feature-card:hover::after {
+            opacity: 0;
+        }
+
+        @keyframes ambient-glow {
+            from {
+                opacity: 0.62;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0.92;
+                transform: scale(1.035);
+            }
+        }
+
         .footer-copy {
             font-size: 0.8rem;
             color: #5a4a38;
-            font-family: 'Special Elite', serif;
+            font-family: Helvetica, Arial, sans-serif;
         }
 
         /* ============ УВЕДОМЛЕНИЕ ============ */
@@ -1155,7 +1337,7 @@
             z-index: 2000;
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             pointer-events: none;
-            font-family: 'Special Elite', serif;
+            font-family: Helvetica, Arial, sans-serif;
             letter-spacing: 0.04em;
             border: 1px solid #8b3a3a;
         }
@@ -1215,6 +1397,14 @@
         }
 
         @media (max-width: 768px) {
+            .pricing-film-icon {
+                display: none;
+            }
+
+            .poster-marquee {
+                display: none;
+            }
+
             .header-inner {
                 height: 62px;
             }
@@ -1371,6 +1561,15 @@
             animation: flicker 4s infinite;
         }
 
+        .section-title,
+        .hero-content h1,
+        .step-card h3,
+        .feature-card h3,
+        .pricing-card .plan-name,
+        .contact-form h3 {
+            font-weight: 800;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -1422,7 +1621,7 @@
             <div class="container">
                 <div class="hero-grid">
                     <div class="hero-content fade-in">
-                        <h1>Подборка фильмов под настроение за 30 секунд</h1>
+                        <h1>Подборка фильмов под настроение <span class="gold-text">за 30 секунд</span></h1>
                         <p>Выбирай настроение, получай готовую подборку, веди кинодневник и смотри кино вместе с друзьями. В «24 кадра» не нужно листать каталоги и спорить, что смотреть вечером.</p>
 
                         <div class="hero-benefits">
@@ -1633,6 +1832,7 @@
                     </div>
                 </div>
             </div>
+            <img class="pricing-film-icon" src="icon.png" alt="" aria-hidden="true">
         </section>
 
         <!-- РАЗДЕЛИТЕЛЬ: КИНОПЛЁНКА -->
@@ -1734,6 +1934,26 @@
 
                         <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%;">Получить подборку</button>
                     </form>
+                </div>
+            </div>
+            <div class="poster-marquee" aria-hidden="true">
+                <div class="poster-track">
+                    <img src="joker.webp" alt="" loading="lazy">
+                    <img src="starwars.webp" alt="" loading="lazy">
+                    <img src="odyssey.webp" alt="" loading="lazy">
+                    <img src="avatar.webp" alt="" loading="lazy">
+                    <img src="seven.webp" alt="" loading="lazy">
+                    <img src="requiem.webp" alt="" loading="lazy">
+                    <img src="pulpfiction.webp" alt="" loading="lazy">
+                    <img src="killbill.webp" alt="" loading="lazy">
+                    <img src="joker.webp" alt="" loading="lazy">
+                    <img src="starwars.webp" alt="" loading="lazy">
+                    <img src="odyssey.webp" alt="" loading="lazy">
+                    <img src="avatar.webp" alt="" loading="lazy">
+                    <img src="seven.webp" alt="" loading="lazy">
+                    <img src="requiem.webp" alt="" loading="lazy">
+                    <img src="pulpfiction.webp" alt="" loading="lazy">
+                    <img src="killbill.webp" alt="" loading="lazy">
                 </div>
             </div>
         </section>
